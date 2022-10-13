@@ -1,5 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #banner.page-header 
+    .row 
+      .col-lg-6 
+        h1 
+          | MekanBul
+          small &nbsp; Civardaki Mekanları Keşfet
+  .row 
+    .row-list-group 
+    .col-xs-12.col-sm-12 
+      h4 
+        a(href='/mekan') Bilgisayar Mühendisliği 
+        small &nbsp;
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star-empty 
+      span.badge.pull-right.badge-default 1km
+      p.address Sdü Batı Kampüsü
+      p 
+        span.label.label-warning Mühendis Gençler 
+        | &nbsp;
+        span.label.label-warning Sinan Hoca
