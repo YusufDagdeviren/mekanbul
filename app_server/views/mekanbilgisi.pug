@@ -1,19 +1,16 @@
 extends layout
+include fonksiyonlar/yildiz
 block content
   .row.page-header 
     .col-lg-12 
-      h1 Starbucks 
+      h1 #{mekanBaslik}
   .row 
     .col-xs-12.col-md-12 
       .row
         .col-xs-12.col-sm-6 
           p.raiting 
-            span.glyphicon.glyphicon-star 
-            span.glyphicon.glyphicon-star 
-            span.glyphicon.glyphicon-star 
-            span.glyphicon.glyphicon-star 
-            span.glyphicon.glyphicon-star-empty 
-          p Centrum Garden AVM 
+           +puanOlustur(mekanDetay.puan)
+          p #{mekanDetay.adres} 
             .panel.panel-primary 
               .panel-heading 
                 h2.panel-title Açılış Saatleri 

@@ -1,4 +1,5 @@
 extends layout
+include fonksiyonlar/yildiz
 block content
   #banner.page-header 
     .row 
@@ -14,10 +15,7 @@ block content
           h4 
             a(href='/mekan') #{mekan.ad} 
             small &nbsp;
-            -for(var i=1;i<=mekan.puan;i++)
-              span.glyphicon.glyphicon-star 
-            -for(var i=mekan.puan;i<5;i++)
-              span.glyphicon.glyphicon-star-empty
+            +puanOlustur(mekan.puan)
 
           span.badge.pull-right.badge-default #{mekan.mesafe}
           p.address #{mekan.adres} 
