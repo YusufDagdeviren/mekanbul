@@ -6,4 +6,4 @@ module.exports={
 }
 //yorum
 //odev3 denemesi
-//Replit degisikligi
+//Replit degisikligi1
