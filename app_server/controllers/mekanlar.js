@@ -46,10 +46,10 @@ const mekanBilgisi=function(req, res, next) {
                 "kapali":false
                 },
                 {
-                    "gunler":"Cumartesi-Pazar",
-                    "acilis":"9:00",
-                    "kapanis":"21:00",
-                    "kapali":false
+                "gunler":"Cumartesi-Pazar",
+                "acilis":"9:00",
+                "kapanis":"21:00",
+                "kapali":false
                 }
             ],
             "imkanlar":[
