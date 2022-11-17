@@ -17,7 +17,7 @@ var mekanSema=new mongoose.Schema({
     adres:String,
     puan:{type:Number,default:0,min:0,max:5},
     imkanlar:[String],
-    koordinatlar:{type:[Number],index:'2dsphere'},//iki adet veri tutacağımız için böyle bir özellik var
+    koordinat:{type:[Number],index:'2dsphere'},//iki adet veri tutacağımız için böyle bir özellik var
     saatler:[saatSema],
     yorumlar:[yorumSema]
 });

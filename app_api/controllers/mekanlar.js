@@ -1,0 +1,95 @@
+var mongoose = require("mongoose");//mongoose'yi import etmemizi sağlar
+var Mekan = mongoose.model("mekan"); //Model adı models/mekansema.js
+
+const cevapOlustur = function(res,status,content){
+    res.status(status).json(content);//ekrana json formatına dönüştürüp basar
+}
+var cevrimler = (function(){
+    var dunyaYariCap = 6371;
+    var radyan2Kilometre = function(radyan){
+        return parseFloat(radyan * dunyaYariCap);
+    };
+    var kilometre2Radyan = function(mesafe){
+        return parseFloat(mesafe/dunyaYariCap);
+    };
+    return {
+        radyan2Kilometre: radyan2Kilometre,
+        kilometre2Radyan: kilometre2Radyan,
+    }
+})();
+const mekanlariListele=async(req,res)=>{
+    var boylam=parseFloat(req.query.boylam);
+    var enlem=parseFloat(req.query.enlem);
+    var koordinat={
+        type:"Point",
+        coordinates:[enlem,boylam],
+    };
+    var geoOptions={
+        distanceField:"mesafe",
+        spherical:true,
+    };
+    if((!enlem && boylam !==0) || (!enlem && boylam !==0)){
+        cevapOlustur(res,404,{
+            "hata":"enlem ve boylam zorunlu parametreler",
+        });
+        return;
+    }
+    try{
+        const sonuc=await Mekan.aggregate([
+            {
+                $geoNear:{
+                    near:koordinat,
+                    ...geoOptions,
+                },
+            },
+        ]);
+        const mekanlar=sonuc.map((mekan)=>{
+            return{
+                mesafe:cevrimler.kilometre2Radyan(mekan.mesafe),
+                ad:mekan.ad,
+                adres:mekan.adres,
+                puan:mekan.puan,
+                imkanlar:mekan.imkanlar,
+                _id:mekan._id,
+            };
+        });
+        cevapOlustur(res,200,mekanlar);
+    }catch(e){
+        cevapOlustur(res,404,e);
+    }
+};
+
+const mekanEkle = function(req,res){//request ve response alıyor
+    cevapOlustur(res,200,{"durum":"basarili"});
+}
+
+const mekanGetir = function(req,res){//request ve response alıyor
+    if (req.params && req.params.mekanid){
+        Mekan.findById(req.params.mekanid).exec(function (hata,mekan){
+            if(!mekan){
+                cevapOlustur(res,404,{"hata":"Böyle bir mekan yok"});
+
+            }else if(hata){
+                cevapOlustur(res,404,{"hata":hata});
+            }else{
+                cevapOlustur(res,200,mekan);
+            }
+        });
+
+    }else{
+        cevapOlustur(res,404,{"hata":"İstekte mekanid yok!"});
+    }
+}
+const mekanGuncelle = function(req,res){//request ve response alıyor
+    cevapOlustur(res,200,{"durum":"basarili"});
+}
+const mekanSil = function(req,res){//request ve response alıyor
+    cevapOlustur(res,200,{"durum":"basarili"});
+}
+module.exports = {
+    mekanlariListele,
+    mekanEkle,
+    mekanGetir,
+    mekanGuncelle,
+    mekanSil
+}
