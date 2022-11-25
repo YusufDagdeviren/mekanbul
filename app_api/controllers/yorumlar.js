@@ -4,6 +4,7 @@ var Mekan = mongoose.model("mekan");
 const cevapOlustur = function(res,status,content){
     res.status(status).json(content);
 }
+//deneme
 var sonPuanHesapla=function(gelenMekan){
     var i,yorumSayisi,ortalamaPuan,toplamPuan;
     if(gelenMekan.yorumlar && gelenMekan.yorumlar.length>0){
