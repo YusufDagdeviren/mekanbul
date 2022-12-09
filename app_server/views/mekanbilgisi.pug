@@ -10,25 +10,25 @@ block content
       .row
         .col-xs-12.col-sm-6 
           p.raiting 
-           +puanOlustur(mekanDetay.puan)
-          p #{mekanDetay.adres} 
+            +puanOlustur(mekanDetay.puan)
+          p=mekanDetay.adres 
             .panel.panel-primary 
               .panel-heading 
-                h2.panel-title Açılış Saatleri
-              .panel-body
-                each saat in mekanDetay.saatler 
+                h2.panel-title Açılış Saatleri 
+              .panel-body 
+                each saat in mekanDetay.saatler
                   p 
                     | #{saat.gunler}:&nbsp;
-                    if(saat.kapali)
+                    if (saat.kapali)
                       | Kapalı
-                    else 
+                    else
                       | #{saat.acilis}-#{saat.kapanis}
             .panel.panel-primary 
                 .panel-heading 
                   h2.panel-title Neler Var?
-                .panel-body
-                  each imkan in mekanDetay.imkanlar 
-                    span.label.label-warning #{imkan} 
+                .panel-body 
+                  each imkan in mekanDetay.imkanlar
+                    span.label.label-warning= imkan 
                     | &nbsp;
         .col-xs-12.col-sm-6 
           .panel.panel-primary 
@@ -42,9 +42,10 @@ block content
     .col-xs-12 
       .panel.panel-primary 
         .panel-heading 
-          a.btn.btn-default.pull-right(href='/mekan/yorum/yeni') Yorum Ekle
+          -var mekanid=mekanDetay._id
+          a.btn.btn-default.pull-right(href='/mekan/'+mekanid+'/yorum/yeni') Yorum Ekle
           h2.panel-title Müşteri Yorumları
-        .panel-body.review-container
+        .panel-body.review-container 
           each yorum in mekanDetay.yorumlar
             .row 
               .review 
@@ -52,7 +53,7 @@ block content
                   span.rating 
                     +puanOlustur(yorum.puan) 
                   span.review-author= yorum.yorumYapan
-                  small.reviewTimestamp &nbsp;
+                  smalll.reviewTimestamp &nbsp;
                   +tarihFormatla(yorum.tarih)
                 .col-xs-12
                   p= yorum.yorumMetni

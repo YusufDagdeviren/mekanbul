@@ -1,17 +1,17 @@
 extends layout
 
 block content
-  .row.page-header
+  .row.page-header 
     .col-lg-12 
-      h1 Starbucks'a Yorum Yap 
-  .row
+      h1=baslik 
+  .row 
     .col-xs-12.col-md-6 
-      form.form-horizontal(action='/mekan',method='get',role='form',id='yorumEkle')
+      form.form-horizontal(action='',method='post',role='form',id='yorumEkle') 
         .form-group
-          label.col-xs-12.col-sm-2.control-label(for='adsoyad') İsim 
+          label.col-xs-10.col-sm-2.control-label(for='adsoyad') İsim 
           .col-xs-12.col-sm-10 
             input#name.form-control(name='adsoyad')
-        .form-group
+        .form-group 
           label.col-xs-10.col-sm-2.control-label(for='puan') Puan 
           .col-xs-12.col-sm-2 
             select#rating.form-control.input-sm(name='puan')
@@ -20,7 +20,7 @@ block content
               option 3
               option 2
               option 1
-        .form-group
+        .form-group 
           label.col-sm-2.control-label(for='yorum') Yorum 
           .col-sm-10 
             textarea#review.form-control(name='yorum',rows='5')
