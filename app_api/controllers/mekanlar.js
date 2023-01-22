@@ -87,7 +87,24 @@ const mekanEkle = function(req,res){//request ve response alıyor
         }
     });
 }
-
+const adminSayfaGetir = function(req, res){
+    Mekan.find({}, function (hata, sonuclar){ //koleksiyon içindeki bütün verileri alır.
+        var mekanlar = [];
+          if (hata) {
+            cevapOlustur (res, 404, hata);
+          } else {//her bir sonucu dolaş ve mekanlara ekle
+            sonuclar.forEach(function(sonuc) {
+                mekanlar.push({
+                    ad: sonuc.ad,
+                    adres: sonuc.adres,
+                    puan: sonuc.puan,
+                    imkanlar: sonuc.imkanlar,
+                    _id: sonuc._id
+                }); });
+            cevapOlustur (res, 200, mekanlar);
+            }
+        });
+};
 const mekanGetir = function(req,res){//request ve response alıyor
     if (req.params && req.params.mekanid){
         Mekan.findById(req.params.mekanid).exec(function (hata,mekan){ //exec fonksiyonu sorguyu çalıştırır
@@ -150,8 +167,7 @@ const mekanSil = function(req,res){//request ve response alıyor
             cevapOlustur(res,200,{"durum":"Mekan Silindi!","Silinen Mekan":gelenMekan.ad});
         });
     } else {
-        cevapOlustur(res,404,{"mesaj":"mekanid bulunamadı"
-    });
+        cevapOlustur(res,404,{"mesaj":"mekanid bulunamadı"});
     }
 };
 module.exports = {
@@ -159,5 +175,6 @@ module.exports = {
     mekanEkle,
     mekanGetir,
     mekanGuncelle,
-    mekanSil
+    mekanSil,
+    adminSayfaGetir
 }
